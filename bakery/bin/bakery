@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+require 'byebug'
+require 'yaml'
+require 'json'
+
+require_relative '../lib/bun'
+require_relative '../lib/parser'
+require_relative '../lib/order'
+require_relative '../lib/packer'
+
+if ARGV.empty? || ARGV.size > 1 || !File.exist?(ARGV.first)
+  puts 'Incorrect or missed input file path'
+  exit
+end
+
+if data = Parser.new(ARGV.first).parse
+  Order.new(data).print
+end
